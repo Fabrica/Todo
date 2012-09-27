@@ -1,0 +1,52 @@
+label {
+    display: inline-block;
+    padding-right: 1em;
+    margin-bottom: 0;
+}
+#username {
+    float: right;
+    margin-top: 25px;
+}
+h1 {
+    margin-bottom: 1em;
+}
+form.saveOnBlur {
+    margin-bottom: 0;
+}
+.oneDoIt {
+    padding-left: .5em;
+    min-height: 36px;
+}
+.oneDoIt i {
+    color: #bbb;
+    font-size: .8em;
+    position: relative;
+    top: -.4em;
+}
+.oneDoIt a {
+    display: none;
+    margin-top: -12px;
+}
+.oneDoIt:hover a {
+    display: inline-block;
+}
+.oneDoIt.editableNow:hover a {
+    display: none;
+}
+.oneDoIt.doing label span {
+    text-decoration: line-through;
+    color: #ccc;
+}
+.oneDoIt.loading {
+    background: yellow;
+}
+.oneDoIt.success {
+    background: #7cfc00;
+}
+.oneDoIt.error {
+    background: #8b0000;
+    color: #fff;
+}
+.oneDoIt.doing:hover a{
+    display: none;
+}
