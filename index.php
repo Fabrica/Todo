@@ -1,3 +1,16 @@
+<?php
+
+namespace Todo;
+
+Template::temp('index');
+
+Template::v()->tasks = \Todo\Task::all();
+
+Template::render();
+
+exit;
+/*
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,3 +54,4 @@ foreach ( $list as $k => $v ) {
 </html>
 
 
+*/

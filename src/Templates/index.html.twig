@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    {% for task in tasks %}
+
+        <p class="oneDoIt {% if task.status == 'ready' %} doing {% endif %}" data-taskid="{{ task.id }}">
+            <label class="checkbox">
+                <input type="checkbox" {% if task.status == 'ready' %} checked="checked" {% endif %} >
+                <span>{{ task.text }}</span>
+            </label>
+            <a class="js-edit" href="#"><i class="icon-pencil"></i></a>
+            <br />
+            <i>Добавил {{ task.author }} {{ task.datetime }}</i>
+        </p>
+
+    {% endfor %}
+
+{% endblock %}

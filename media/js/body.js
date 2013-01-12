@@ -129,6 +129,7 @@ $(function(){
     var d = new Date;
     var lastTimeOnLine = d.getTime();
 
+    /*
     var beOnLine = setInterval(function() {
         $.ajax({
             url: 'online.php',
@@ -142,5 +143,5 @@ $(function(){
         var d = new Date;
         lastTimeOnLine = d.getTime();
     }, intervalOnLine);
-
+*/
 });
