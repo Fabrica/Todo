@@ -1,3 +1,6 @@
 [submodule "src/ActiveRecords"]
 	path = src/ActiveRecords
 	url = https://github.com/kla/php-activerecord.git
+[submodule "src/Twig"]
+	path = src/Twig
+	url = https://github.com/fabpot/Twig.git
