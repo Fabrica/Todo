@@ -11,10 +11,11 @@ require_once SYS.'Todo/Autoloader.php';
 
 require_once SYS.'ActiveRecords/ActiveRecord.php';
 
-\ActiveRecord\Config::initialize(function($cfg) {
+ActiveRecord\Config::initialize(function($cfg) {
     $settings = (object)include(SYS.'env.php');
     $cfg->set_connections(array('development' => 'mysql://'.$settings->db));
 });
+ActiveRecord\DateTime::$DEFAULT_FORMAT = 'long';
 
 /**
  * Переменные для всех шаблонов
