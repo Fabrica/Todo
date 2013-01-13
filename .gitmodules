@@ -1,0 +1,3 @@
+[submodule "src/ActiveRecords"]
+	path = src/ActiveRecords
+	url = https://github.com/kla/php-activerecord.git
