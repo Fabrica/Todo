@@ -18,18 +18,14 @@
 
 <div class="container">
 
-    <input id="username" name="username" value="{{ Author }}" placeholder="Имя пользователя" />
-    <h1>ToDo Lists!</h1>
+    <form action="save.php" class="makeNew" method="POST">
+        <input id="username" name="author" value="{{ Author }}" placeholder="Имя пользователя" />
+        <h1>ToDo Lists!</h1>
 
-    <form class="makeNew">
-        <p>Добавить: <input id="makeNewInput" style="width:500px;">
-            <input type="hidden" id="e12" style="width:300px" value="brown, red, green"/>
-            <input type="hidden" id="projectSelect" style="width:300px" value="brown, red, green"/>
-            Проект: <select name="project" id="projectSelect2" multiple>
-                {% for project in projects %}
-                    <option>{{ project.project }}</option>
-                {% endfor %}
+        <p>Добавить: <input id="makeNewInput" name="text" style="width:500px;">
+            Проект: <input type="hidden" id="projectSelect" name="project" value="" style="width: 300px;" data-list="{{ projectsList }}">
             </select>
+            <button type="submit">Отправить</button>
         </p>
     </form>
 

@@ -6,7 +6,21 @@ use ActiveRecord;
 
 Template::temp('index');
 
-Template::v()->tasks = Task::find('all', array('order' => 'datetime desc'));
-Template::v()->projects = Task::find('all', array('select' => 'DISTINCT project', 'order' => 'datetime desc'));
+$tasks = Task::find('all', array('order' => 'datetime desc'));
+$projects = Task::getProjects();
+Template::v()->projectsList = implode(',', $projects);
+
+foreach ( $projects as $k => $project ) {
+    $projects[$k] = new \stdClass();
+    $projects[$k]->project = $project;
+    $projects[$k]->tasks = array();
+    foreach ( $tasks as $k1 => $v1 ) {
+        if ( $v1->project == $project ) {
+            $projects[$k]->tasks[] = $v1;
+        }
+    }
+}
+Template::v()->tasks = $tasks;
+Template::v()->projects = $projects;
 
 Template::render();
