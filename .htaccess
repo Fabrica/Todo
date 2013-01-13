@@ -2,3 +2,9 @@ php_value auto_prepend_file src/include.php
 
 AddDefaultCharset utf-8
 php_value date.timezone Asia/Yekaterinburg
+
+Options -Indexes
+
+<Files ".git*">
+    deny from all
+</Files>
