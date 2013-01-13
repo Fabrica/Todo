@@ -16,6 +16,9 @@ if ( isset($_POST['text']) ) {
         if ( isset($_POST['author']) ) {
             $task->author = $_POST['author'];
         }
+        if ( isset($_POST['project']) ) {
+            $task->project = is_array($_POST['project']) ? $_POST['project'][0] : $_POST['project'];
+        }
         $h->doing = 'create';
     }
     $task->text = $_POST['text'];

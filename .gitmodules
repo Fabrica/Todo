@@ -4,3 +4,6 @@
 [submodule "src/Twig"]
 	path = src/Twig
 	url = https://github.com/fabpot/Twig.git
+[submodule "media/js/select2"]
+	path = media/js/select2
+	url = https://github.com/joshuan/select2.git

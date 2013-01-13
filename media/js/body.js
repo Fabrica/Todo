@@ -101,7 +101,7 @@ $(function(){
                 +$("#username").val()+' только что</i>' );
             $("#afterThis").after(p);
             $.ajax($.extend({},standartAjax,{
-                data: { text: text },
+                data: { text: text, project: $('#projectSelect').val() },
                 success: function(data) {
                     if ( typeof(data.success) != 'undefined' && data.success ) {
                         p.removeClass('loading').addClass('success');
@@ -128,6 +128,13 @@ $(function(){
 
     var d = new Date;
     var lastTimeOnLine = d.getTime();
+
+    $('#projectSelect').select2({
+        maximumSelectionSize: 1,
+        tags: ["red", "green", "blue"]
+    });
+
+    $("#e12").select2({tags:["red", "green", "blue"]});
 
     /*
     var beOnLine = setInterval(function() {
