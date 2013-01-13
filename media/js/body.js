@@ -92,16 +92,17 @@ $(function(){
         })
         .on('submit', '.makeNew', function() {
             var $this = $(this),
-                text = $this.find('input').val();
+                text = $this.find('#makeNewInput').val(),
+                project = $this.find('#projectSelect').val();
             if ( text == '' ) {
                 return false;
             }
             var p = $('<p/>').addClass('oneDoIt loading').html( '<label class="checkbox"><input type="checkbox"> <span>'
                 +text+'</span></label><a class="js-edit" href="#"><i class="icon-pencil"></i></a><br><i>Добавил '
-                +$("#username").val()+' только что</i>' );
+                +$("#username").val()+' только что в <small>'+project+'</small></i>' );
             $("#afterThis").after(p);
             $.ajax($.extend({},standartAjax,{
-                data: { text: text },
+                data: { author: $('#username').val(), text: text, project: project },
                 success: function(data) {
                     if ( typeof(data.success) != 'undefined' && data.success ) {
                         p.removeClass('loading').addClass('success');
@@ -129,6 +130,15 @@ $(function(){
     var d = new Date;
     var lastTimeOnLine = d.getTime();
 
+    $('#projectSelect').each( function() {
+        var data = $(this).data('list');
+        $(this).select2({
+            maximumSelectionSize: 1,
+            tags: data.split(',')
+        });
+    });
+
+    /*
     var beOnLine = setInterval(function() {
         $.ajax({
             url: 'online.php',
@@ -142,5 +152,5 @@ $(function(){
         var d = new Date;
         lastTimeOnLine = d.getTime();
     }, intervalOnLine);
-
+*/
 });

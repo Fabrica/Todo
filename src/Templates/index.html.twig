@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <ul id="myTab" class="nav nav-tabs">
+        {% for project in projects %}
+            <li><a href="#{{ project.project }}" data-toggle="tab">{{ project.project }}</a></li>
+        {% endfor %}
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        {% for project in projects %}
+            <div class="tab-pane fade" id="{{ project.project }}">
+                {% for task in project.tasks %}
+                    <p class="oneDoIt {% if task.status == 'ready' %} doing {% endif %}" data-taskid="{{ task.id }}">
+                        <label class="checkbox">
+                            <input type="checkbox" {% if task.status == 'ready' %} checked="checked" {% endif %} >
+                            <span>{{ task.text }}</span>
+                        </label>
+                        <a class="js-edit" href="#"><i class="icon-pencil"></i></a>
+                        <br />
+                        <i>Добавил {{ task.author }} {{ task.datetime }} <small>({{ task.project }})</small></i>
+                    </p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

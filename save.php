@@ -1,22 +1,23 @@
 <?php
 
-require_once 'inc.php';
-
-$user = isset($_COOKIE['username']) ? $_COOKIE['username'] : 'Robot';
+namespace Todo;
 
 if ( isset($_POST['text']) ) {
     $h = new History();
-    $h->author = $user;
+    $h->author = Template::v()->Author;
     if ( isset($_POST['id']) ) {
-        $task = Tasks::find($_POST['id']);
+        $task = Task::find($_POST['id']);
         $h->before = $task->text;
         $h->doing = 'rename';
     }
     else {
-        $task = new Tasks();
-        $task->author = $user;
+        $task = new Task();
+        $task->author = Template::v()->Author;
         if ( isset($_POST['author']) ) {
             $task->author = $_POST['author'];
+        }
+        if ( isset($_POST['project']) ) {
+            $task->project = $_POST['project'];
         }
         $h->doing = 'create';
     }
@@ -26,15 +27,13 @@ if ( isset($_POST['text']) ) {
         $h->after = $task->text;
         $h->task_id = $task->id;
         $h->save();
-//	$a = shell_exec('python --version');///home/joshuan/scripts/jabber_send.py joshuan.chel@gmail.com "Задача №'.$task->id.'. '.$task->text.'. Автор: '.$task->author.'"');
-//	var_dump($a);
     }
     die( json_encode(array('success'=>$id,'id'=>$task->id)));
 }
 elseif ( isset($_POST['id']) && isset($_POST['status']) ) {
-    $task = Tasks::find($_POST['id']);
+    $task = Task::find($_POST['id']);
     $h = new History();
-    $h->author = $user;
+    $h->author = Template::v()->Author;
     $h->task_id = $task->id;
     $h->doing = 'change';
     $h->before = $task->status;
