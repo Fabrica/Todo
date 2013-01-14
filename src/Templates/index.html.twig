@@ -2,27 +2,42 @@
 
 {% block content %}
 
-    <ul id="myTab" class="nav nav-tabs">
+    <div class="projects" style="text-align: center;"> &nbsp; | &nbsp;
         {% for project in projects %}
-            <li><a href="#{{ project.project }}" data-toggle="tab">{{ project.project }}</a></li>
-        {% endfor %}
-    </ul>
-    <div id="myTabContent" class="tab-content">
-        {% for project in projects %}
-            <div class="tab-pane fade" id="{{ project.project }}">
-                {% for task in project.tasks %}
-                    <p class="oneDoIt {% if task.status == 'ready' %} doing {% endif %}" data-taskid="{{ task.id }}">
-                        <label class="checkbox">
-                            <input type="checkbox" {% if task.status == 'ready' %} checked="checked" {% endif %} >
-                            <span>{{ task.text }}</span>
-                        </label>
-                        <a class="js-edit" href="#"><i class="icon-pencil"></i></a>
-                        <br />
-                        <i>Добавил {{ task.author }} {{ task.datetime }} <small>({{ task.project }})</small></i>
-                    </p>
-                {% endfor %}
-            </div>
+            <a href="/{{ project.project }}">{{ project.project }}</a> &nbsp; | &nbsp;
         {% endfor %}
     </div>
+
+    <hr>
+
+    <div class="tasks">
+        {% for project in projects %}
+            {% for task in project.tasks %}
+                <div class="task" data-taskid="{{ task.id }}">
+                    <label class="checkbox">
+                        <input class="statusBox" type="checkbox" {% if task.status == 'ready' %} checked="checked" {% endif %} >
+                        <span class="text">{{ task.text }}</span>
+                    </label>
+                    <br />
+                    <i>Добавил <span class="author">{{ task.author }}</span> -
+                        <span class="datetime">{{ task.datetime }}</span>
+                        <small>(<span class="project">{{ task.project }}</span>)</small></i>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    <script type="text/template" id="template-task">
+        <div class="task" data-taskid="<%- id %>">
+            <label class="checkbox">
+                <input class="statusBox" type="checkbox" <%= status=='ready' ? 'checked="checked"' : '' %> >
+                <span class="text"><%- text %></span>
+            </label>
+            <br />
+            <i>Добавил <span class="author"><%- author %></span> -
+                <span class="datetime"><%- datetime %></span>
+                <small>(<span class="project"><%- project %></span>)</small></i>
+        </div>
+    </script>
 
 {% endblock %}

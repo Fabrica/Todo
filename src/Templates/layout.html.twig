@@ -3,33 +3,27 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Todo list</title>
-    <link type="text/css" href="media/css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
-    <link type="text/css" href="media/css/bootstrap-responsive.min.css" rel="stylesheet" />
-    <link type="text/css" href="media/css/bootstrap.min.css" rel="stylesheet" />
-    <link type="text/css" href="media/js/select2/select2.css" rel="stylesheet" />
-    <link type="text/css" href="media/css/style.css" rel="stylesheet" />
-    <script type="text/javascript" src="media/js/jquery-1.8.2.min.js"></script>
-    <script type="text/javascript" src="media/js/jquery-ui-1.8.23.custom.min.js"></script>
-    <script type="text/javascript" src="media/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="media/js/select2/select2.js"></script>
-    <script type="text/javascript" src="media/js/body.js"></script>
+    <link rel="stylesheet" href="/media/css/style.css">
+    <script src="/media/js/jquery-1.8.2.min.js"></script>
+    <script src="/media/js/underscore.js"></script>
+    <script src="/media/js/backbone.js"></script>
+    {#<script src="/media/js/todo.js"></script>#}
+    <script src="/media/js/app.js"></script>
 </head>
 <body>
 
 <div class="container">
 
     <form action="save.php" class="makeNew" method="POST">
-        <input id="username" name="author" value="{{ Author }}" placeholder="Имя пользователя" />
         <h1>ToDo Lists!</h1>
-
-        <p>Добавить: <input id="makeNewInput" name="text" style="width:500px;">
-            Проект: <input type="hidden" id="projectSelect" name="project" value="" style="width: 300px;" data-list="{{ projectsList }}">
-            </select>
+        <p>Автор: <input id="username" name="author" value="{{ Author }}" placeholder="Имя пользователя" /><br>
+            Задача: <input id="makeNewInput" name="text" style="width:600px;"><br>
+            Проект: <input type="text" name="project" value="Fabrica" style="width: 300px;"><br>
             <button type="submit">Отправить</button>
         </p>
     </form>
 
-    <hr id="afterThis" />
+    <hr>
 
     {% block content %}{% endblock %}
 
