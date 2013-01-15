@@ -1,122 +1,39 @@
-$(function() {
+(function(App) {
 
-    var Task = Backbone.Model.extend({
-        isReady: function() {
-            return this.get('status') === 'ready';
-        },
+    $(function() {
 
-        toggleStatus: function() {
-            var newStatus = this.isReady() ? 'wait' : 'ready';
-            this.set('status', newStatus );
-        },
-
-        defaults: {
-            visible: true
-        }
-    });
-
-    var TaskCollection = Backbone.Collection.extend({
-        model: Task,
-        url: 'update.php',
-
-        initialize: function () {
-            this.on("change:status", function (model) {
-                model.save();
-            });
-        },
-
-        applyFilter: function(filter) {
-            _.each(this.models, function(task) {
-                task.set('visible', task.get('project') == filter);
-            });
-        }
-
-    });
-
-    var TaskView = Backbone.View.extend({
-
-        events: {
-            "change .statusBox": "changeBox"
-        },
-
-        initialize: function() {
-            this.trackVisible();
-        },
-
-        changeBox: function() {
-            this.model.toggleStatus();
-        },
-
-        trackVisible: function() {
-            this.model.on("change:visible", function (model, visible) {
-                if ( visible ) {
-                    this.$el.show();
-                } else {
-                    this.$el.hide();
-                }
-            }, this);
-        }
-
-    }, {
-
-        getData: function($this) {
-            return {
-                id:       $this.data('taskid'),
-                status:   $this.find('input:checkbox').is(':checked') ? 'ready' : 'wait',
-                text:     $this.find('.text').text(),
-                author:   $this.find('.author').text(),
-                datetime: $this.find('.datetime').text(),
-                project:  $this.find('.project').text()
-            };
-        }
-    });
-
-    var Router = Backbone.Router.extend({
-
-        routes: {
-            ":filter": 'filter'
-        },
-
-        filter: function(filter) {
-            Collection.applyFilter(filter);
-            return filter;
-        }
-
-    });
-
-
-
-
-    function initTasks() {
-        var models = [];
-
-        $(".task").each(function () {
-
-            var data = TaskView.getData($(this));
-            var taskModel = new Task(data);
-            var taskView = new TaskView({
-                model: taskModel
-            });
-            taskView.setElement(this);
-            models.push(taskModel);
+        App.Projects = new App.ProjectCollection();
+        App.Projects.on('add', function(model) {
+            var view = App.ProjectView.createView(model);
+            $('.projects ul').append(view.$el);
         });
 
-        return models;
-    }
+        App.Projects.fetch({
+            add: true,
+            success: function() {
 
-    var Collection = new TaskCollection(initTasks());
+                App.Collection = new App.TaskCollection();
 
-    var Controller = new Router();
+                App.Collection.on('add', function(model) {
+                    var view = App.TaskView.createView(model);
+                    $('.tasks').prepend(view.$el);
+                });
 
-    Backbone.history.start({pushState: true});
+                App.Collection.fetch({
+                    add: true,
+                    success: function() {
+                        App.Controller = new App.Router(App.Projects);
+                        Backbone.history.start({pushState: true});
+                        $('.showAllTasks').on('click', function() {
+                            App.Controller.navigate('/', true);
+                            return false;
+                        });
+                    }
+                });
 
-    $('.projects a').on('click', function() {
-        Controller.navigate($(this).attr('href'), true);
-        return false;
+            }
+        });
+
     });
 
-
-
-
-
-});
+}(window['App']));

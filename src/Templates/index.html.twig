@@ -2,16 +2,16 @@
 
 {% block content %}
 
-    <div class="projects" style="text-align: center;"> &nbsp; | &nbsp;
-        {% for project in projects %}
-            <a href="/{{ project.project }}">{{ project.project }}</a> &nbsp; | &nbsp;
-        {% endfor %}
+    <div class="projects">
+        <ul>
+            <li><a class="showAllTasks" href="/"><span>Все:</span></a></li>
+        </ul>
     </div>
 
     <hr>
 
     <div class="tasks">
-        {% for project in projects %}
+        {#{% for project in projects %}
             {% for task in project.tasks %}
                 <div class="task" data-taskid="{{ task.id }}">
                     <label class="checkbox">
@@ -24,11 +24,11 @@
                         <small>(<span class="project">{{ task.project }}</span>)</small></i>
                 </div>
             {% endfor %}
-        {% endfor %}
+        {% endfor %}#}
     </div>
 
     <script type="text/template" id="template-task">
-        <div class="task" data-taskid="<%- id %>">
+        <div class="task <%= status=='ready' ? 'allReady' : '' %>" data-taskid="<%- id %>">
             <label class="checkbox">
                 <input class="statusBox" type="checkbox" <%= status=='ready' ? 'checked="checked"' : '' %> >
                 <span class="text"><%- text %></span>
@@ -38,6 +38,9 @@
                 <span class="datetime"><%- datetime %></span>
                 <small>(<span class="project"><%- project %></span>)</small></i>
         </div>
+    </script>
+    <script type="text/template" id="template-project">
+        <li><a href="/<%- project %>"><span><%- project %></span> <small>(<i class="projects-count-todo"><%- todo %></i>/<i class="projects-count-all"><%- all %></i>)</small></a></li>
     </script>
 
 {% endblock %}

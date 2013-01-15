@@ -7,7 +7,56 @@
 .task {
     margin: 1em 0 1.5em;
 }
+.task.allReady {
+    color: gray;
+    opacity: .5;
+}
 .task i {
     color: #aaa;
     font-size: 0.9em;
+}
+
+.projects {
+    text-align: center;
+}
+.projects ul {
+    margin: .3em 0;
+}
+.projects li {
+    display: inline-block;
+    margin: 0;
+}
+.projects li a {
+    padding: .5em 1em;
+    color: #111;
+    text-decoration: none;
+}
+.projects li a span {
+    color: #00008b;
+    text-decoration: underline;
+}
+.projects li a small {
+    color: #aaaaaa;
+}
+.projects li a:hover {
+    background: #f1f1f1;
+}
+.projects li a.active {
+    background: #ffa07a;
+    color: #333;
+    text-decoration: none;
+}
+.projects li a.active span {
+    color: #333;
+    text-decoration: none;
+}
+.projects li a.active small {
+    color: #fff;
+    text-decoration: none;
+}
+.projects-count-todo {
+    font-style: normal;
+}
+.projects-count-all {
+    font-style: normal;
 }

@@ -2,8 +2,6 @@
 
 namespace Todo;
 
-use ActiveRecord;
-
 Template::temp('index');
 
 $tasks = Task::find('all', array('order' => 'datetime desc'));

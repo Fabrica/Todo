@@ -17,6 +17,6 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `datetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `author` varchar(95) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Robot',
   `status` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'wait',
-  `project` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `project` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Fabrica',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=0 ;
