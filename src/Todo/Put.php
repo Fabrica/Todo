@@ -13,7 +13,7 @@ class Put
             $a .= $kb;
         }
         fclose($s);
-        return json_decode($a);
+        return json_decode($a, true);
     }
 
 }

@@ -2,6 +2,7 @@
 
     App.Task = Backbone.Model.extend({
 
+        url: '/api/Task.php',
         defaults: {
             visible: true
         },

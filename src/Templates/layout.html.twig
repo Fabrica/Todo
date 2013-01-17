@@ -13,15 +13,16 @@
     <script src="/media/js/todo.Task.js"></script>
     <script src="/media/js/app.js"></script>
 </head>
-<body>
+<body class="hideReady">
 
 <div class="container">
 
+    <button id="showingReady">Показывать все</button>
     <form action="save.php" class="makeNew" method="POST">
         <h1>ToDo Lists!</h1>
         <p>Автор: <input id="username" name="author" value="{{ Author }}" placeholder="Имя пользователя" /><br>
             Задача: <input id="makeNewInput" name="text" style="width:600px;"><br>
-            Проект: <input type="text" name="project" value="Fabrica" style="width: 300px;"><br>
+            Проект: <input id="makeNewProject" type="text" name="project" value="Fabrica" style="width: 300px;"><br>
             <button type="submit">Отправить</button>
         </p>
     </form>

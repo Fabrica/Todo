@@ -17,6 +17,7 @@
             _.each(this.Projects.models, function(project) {
                 project.set('active', project.get('project') == filter ? true : false);
             });
+            $('#makeNewProject').val(filter);
             return filter;
         },
 
@@ -24,6 +25,7 @@
             _.each(this.Projects.models, function(project) {
                 project.set('active', true);
             });
+            $('#makeNewProject').val('');
         }
 
     });

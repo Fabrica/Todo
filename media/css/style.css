@@ -3,9 +3,15 @@
     width: 80%;
     margin: 0 auto;
 }
+h1 {
+    margin: 0 0 .4em;
+}
 
 .task {
     margin: 1em 0 1.5em;
+}
+.hideReady .task.allReady {
+    display: none !important;
 }
 .task.allReady {
     color: gray;
@@ -59,4 +65,7 @@
 }
 .projects-count-all {
     font-style: normal;
+}
+#showingReady {
+    float: right;
 }

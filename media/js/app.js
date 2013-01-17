@@ -28,6 +28,35 @@
                             App.Controller.navigate('/', true);
                             return false;
                         });
+                        $('.makeNew').on('submit', function(e) {
+                            var date = new Date();
+                            var task = {};
+                            $(e.target).find('input').each( function() {
+                                task[$(this).attr('name')] = $(this).val();
+                            });
+                            var model = new App.Task(task);
+                            model.save({}, {
+                                success: function(model, response, options) {
+                                    App.Collection.add(model);
+                                    $('#makeNewInput').val('').focus();
+                                },
+                                error: function(model, xhr, options) {
+                                    alert('Ошибка. '+xhr.status+':'+xhr.responseText);
+                                }
+                            });
+                            return false;
+                        });
+                        $('#showingReady').click( function() {
+                            if ( $('body').hasClass('hideReady') ) {
+                                $('body').removeClass('hideReady');
+                                $(this).text('Показывать только новые');
+                            }
+                            else {
+                                $('body').addClass('hideReady');
+                                $(this).text('Показывать все');
+                            }
+                            return false;
+                        });
                     }
                 });
 
