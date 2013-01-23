@@ -2,6 +2,8 @@
 
     $(function() {
 
+        App.oldName = $('#username').val();
+
         App.Projects = new App.ProjectCollection();
         App.Projects.on('add', function(model) {
             var view = App.ProjectView.createView(model);
@@ -39,6 +41,7 @@
                                 success: function(model, response, options) {
                                     App.Collection.add(model);
                                     $('#makeNewInput').val('').focus();
+                                    App.socket.emit('add', model.toJSON());
                                 },
                                 error: function(model, xhr, options) {
                                     alert('Ошибка. '+xhr.status+':'+xhr.responseText);
@@ -46,17 +49,31 @@
                             });
                             return false;
                         });
+                        $("#username").on('focusout', function() {
+                            var name = $(this).val();
+                            if ( name == App.oldName ) {
+                                return false;
+                            }
+                            App.socket.emit('changeName', { oldName: App.oldName==''?'unknown':App.oldName, newName: name });
+                            App.oldName = name;
+                        });
                         $('#showingReady').click( function() {
-                            if ( $('body').hasClass('hideReady') ) {
-                                $('body').removeClass('hideReady');
+                            var $body = $('body');
+                            if ( $body.hasClass('hideReady') ) {
+                                $body.removeClass('hideReady');
                                 $(this).text('Показывать только новые');
                             }
                             else {
-                                $('body').addClass('hideReady');
+                                $body.addClass('hideReady');
                                 $(this).text('Показывать все');
                             }
                             return false;
                         });
+
+                        App.online();
+
+                        App.initChat();
+
                     }
                 });
 

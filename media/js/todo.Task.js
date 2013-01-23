@@ -4,7 +4,17 @@
 
         url: '/api/Task.php',
         defaults: {
-            visible: true
+            visible: true,
+            project: 'Fabrica'
+        },
+
+        initialize: function(a) {
+            if ( a.project == '' ) {
+                this.set('project', 'Fabrica');
+            }
+            if ( a.author == '' ) {
+                this.set('author', 'Guest');
+            }
         },
 
         setStatusTrue: function() {
@@ -29,6 +39,9 @@
 
             this.on('add', function(model) {
                 var projects = App.Projects.where({project: model.get('project')});
+                if ( projects[0] == undefined ) {
+                    return false;
+                }
                 projects[0].addTask();
                 if ( model.get('status') == 'ready' ) {
                     projects[0].changeCount(-1);

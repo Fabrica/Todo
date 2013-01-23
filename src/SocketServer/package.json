@@ -1,0 +1,9 @@
+{
+    "name"        : "todo.fabrica",
+    "version"     : "0.0.1",
+    "author"      : "Joshuan",
+    "private"     : true,
+    "dependencies": {
+        "socket.io": ">= 0.9.0"
+    }
+}
